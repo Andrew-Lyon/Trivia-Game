@@ -1,0 +1,228 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>League of Legends Trivia Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+</head>
+<body>
+    <h1>League of Legends Trivia Game!</h1>
+    <h4>Time Left: <span class="time"></span></h4>
+    <div class="container">
+    
+    </div>
+
+    <a class="waves-effect waves-light btn-large finishQuiz">Submit Quiz</a>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script>
+        let questions = [
+            {
+                id: 0,
+                question: 'What was the first league champion ever designed?',
+                choices: ['Jax', 'Dr. Mundo', 'Singed', 'Udyr', 'Riven'],
+                correct: 'Singed'
+            },
+            {
+                id: 1,
+                question: "Who is Renekton's brother?",
+                choices: ['Nasus', 'Darius', 'Tahm Kench', 'ChoGath', 'Frank, from the lore'],
+                correct: 'Nasus'
+            },
+            {
+                id: 2,
+                question: "What is Katarina's passive named?",
+                choices: ['Thrill of the Hunt,', 'Voracity', 'Spinning Blade', 'Sinister Blades', 'Null Sphere'],
+                correct: 'Voracity'
+            },
+            {
+                id: 3,
+                question: "Who is Draven's sibling?",
+                choices: ['Lee Sin', 'Jayce', 'Garen', 'Ahri', 'Darius'],
+                correct: 'Darius'
+            },
+            {
+                id: 4,
+                question: 'Who is the oldest champion according to lore?',
+                choices: ['Nasus', 'Renekton', 'Brand', 'Azir', 'Xerath'],
+                correct: 'Brand'
+            },
+            {
+                id: 5,
+                question: "What is Lulu's fairy named?",
+                choices: ['Fix', 'Wix', 'Mix', 'Pix', 'Lix'],
+                correct: 'Pix'
+            },
+            {
+                id: 6,
+                question: 'Who was the most recent addition to the champion roster?',
+                choices: ['Pyke', 'KaiSa', 'Bard', 'Zoe', 'Ornn'],
+                correct: 'Pyke'
+            },
+            {
+                id: 7,
+                question: "Who is Illaoi's immoral lover?",
+                choices: ['Miss Fortune', 'Gangplank', 'Nami', 'Yorick', 'Maokai'],
+                correct: 'Gangplank'
+            },
+            {
+                id: 8,
+                question: 'What was the longest period of time a champion was left unchanged in the patch notes?',
+                choices: ['6 months', '3 months', '1 year', '2 years', '5 years'],
+                correct: '2 years'
+            },
+            {
+                id: 9,
+                question: 'What was that champion?',
+                choices: ['Trundle', 'Irelia', 'Jarvan IV', 'Leona', 'Skarner'],
+                correct: 'Irelia'
+            }
+        ]
+
+        questions.forEach(question => {
+            $('.container').append(`
+            <div class="row">
+                <h5 class="question">${question.question}</h5>
+                    <p>
+                        <label>
+                            <input class="choice" data-choice="${question.choices[0]}" name="question-${question.id}" type="radio" />
+                            <span>${question.choices[0]}</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input class="choice" data-choice="${question.choices[1]}" name="question-${question.id}" type="radio" />
+                            <span>${question.choices[1]}</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input class="choice" data-choice="${question.choices[2]}" name="question-${question.id}" type="radio" />
+                            <span>${question.choices[2]}</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input class="choice" data-choice="${question.choices[3]}" name="question-${question.id}" type="radio" />
+                            <span>${question.choices[3]}</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input class="choice" data-choice="${question.choices[4]}" name="question-${question.id}" type="radio" />
+                            <span>${question.choices[4]}</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input class="choice" data-choice="${question.choices[5]}" name="question-${question.id}" type="radio" />
+                            <span>${question.choices[5]}</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input class="choice" data-choice="${question.choices[6]}" name="question-${question.id}" type="radio" />
+                            <span>${question.choices[6]}</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input class="choice" data-choice="${question.choices[7]}" name="question-${question.id}" type="radio" />
+                            <span>${question.choices[7]}</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input class="choice" data-choice="${question.choices[8]}" name="question-${question.id}" type="radio" />
+                            <span>${question.choices[8]}</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input class="choice" data-choice="${question.choices[9]}" name="question-${question.id}" type="radio" />
+                            <span>${question.choices[9]}</span>
+                        </label>
+                    </p>
+             <p class="answer-${question.id}" style="visibility: hidden">${question.correct}</p>
+            </div>
+            `)
+        })
+
+        var qChoice0
+        var qChoice1
+        var qChoice2
+        var qChoice3
+        var qChoice4
+        var qChoice5
+        var qChoice6
+        var qChoice7
+        var qChoice8
+        var qChoice9
+
+        $('document').on('click', '.choice', function() {
+            let temp = $(this).attr('name').split('-')
+            let qId = temp[1]
+            window[`qChoice${qId}`] = ($(this).attr('data-choice'))
+        })
+
+        $('.finishQuiz').on('click', function() {
+            finishGame()
+        })
+
+        function finishGame() {
+            clearInterval(gameTimer)
+            count = 0
+            for (let i = 0; i < questions.length; i++) {
+                 $(`answer-${i}`).css('visibility', 'visible')
+                if (window[`qChoice${i}`] === questions[i].correct) {
+                    count++
+                }
+            }
+            if(count === 5) {
+                alert('Perfect Score! Congrats!')
+            } else {
+                alert('If you are not perfect, you are wrong, do it again until you are perfect')
+            }
+        }
+
+        function timeConversion (t) {
+    var minutes = Math.floor(t / 60)
+    var seconds = t - (minutes * 60)
+
+    if (seconds < 10) {
+      seconds = '0' + seconds
+    }
+
+    if (minutes === 0) {
+      minutes = '00'
+    } else if (minutes < 10) {
+      minutes = '0' + minutes
+    }
+
+    return minutes + ':' + seconds
+  }
+
+        let time = 240
+        $('.time').html('04:00')
+
+        let gameTimer = setInterval(function () {
+            time--
+            if (time > 0) {
+            $('.time').html(timeConversion(time))
+            }
+            else {
+            $('.time').html('00:00')
+            finishGame()
+            }
+        }, 1000)
+
+
+    </script>
+</body>
+</html>
